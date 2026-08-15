@@ -227,6 +227,7 @@ const vendorRaw = fs.readFileSync(vendorFile, 'utf8')
   .split('\n')
   .filter((line) => !line.startsWith(VENDOR_HEADER))
   .join('\n')
+  .replace(/\s+$/, '')
 const exportIdx = vendorRaw.indexOf('export{')
 if (exportIdx < 0) throw new Error('uisfx export marker not found')
 const vendorBody = vendorRaw
