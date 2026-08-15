@@ -4,6 +4,8 @@
 > 任务开始 / 成功 / 失败、按钮点击，全都可以在设置页里按情景挑选音效，并即时试听。
 
 [![License](https://img.shields.io/badge/license-MIT-blue)](#license)
+[![npm version](https://img.shields.io/npm/v/dsh-plugin-uisfx)](https://www.npmjs.com/package/dsh-plugin-uisfx)
+[![npm downloads](https://img.shields.io/npm/dm/dsh-plugin-uisfx)](https://www.npmjs.com/package/dsh-plugin-uisfx)
 [![dsh-plugin](https://img.shields.io/badge/topic-dsh--plugin-7c3aed)](https://github.com/topics/dsh-plugin)
 [![dsh](https://img.shields.io/badge/dsh-0.1.0--rc.6-2563eb)](https://github.com/deepseek-ai)
 [![uisfx](https://img.shields.io/badge/powered%20by-uisfx%200.4.0-f97316)](https://uisfx.com)
@@ -32,9 +34,17 @@ dsh 默认几乎没有反馈音。任务跑完了？失败了吗？按钮有没�
 
 ## 快速开始
 
+已发布到 npm：**[dsh-plugin-uisfx](https://www.npmjs.com/package/dsh-plugin-uisfx)**
+
 ```powershell
 dsh plugin --profile web add dsh-plugin-uisfx
 # 重启 dsh web
+```
+
+固定版本安装：
+
+```powershell
+dsh plugin --profile web add dsh-plugin-uisfx@0.1.0
 ```
 
 然后打开 **设置 → 音效**。
