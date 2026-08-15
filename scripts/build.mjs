@@ -221,7 +221,12 @@ export function apply(ctx) {
 fs.writeFileSync(pluginDir + '/lib/index.js', nodeHalf, 'utf8')
 
 // ---------------- client bundle ----------------
+const VENDOR_HEADER = '// vendored from uisfx@0.4.0 (MIT), https://github.com/romainsimon/uisfx'
+// Strip any previously added header so the build is idempotent.
 const vendorRaw = fs.readFileSync(vendorFile, 'utf8')
+  .split('\n')
+  .filter((line) => !line.startsWith(VENDOR_HEADER))
+  .join('\n')
 const exportIdx = vendorRaw.indexOf('export{')
 if (exportIdx < 0) throw new Error('uisfx export marker not found')
 const vendorBody = vendorRaw
@@ -232,7 +237,7 @@ const vendorBody = vendorRaw
 // Keep a complete vendored copy for transparency.
 fs.writeFileSync(
   pluginDir + '/vendor/uisfx-0.4.0.js',
-  '// vendored from uisfx@0.4.0 (MIT), https://github.com/romainsimon/uisfx\n' + vendorRaw + '\n',
+  VENDOR_HEADER + '\n' + vendorRaw + '\n',
   'utf8',
 )
 
