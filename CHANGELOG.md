@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1
+
+- Update README for the npm release: npm badges, fixed-version install command, and published status.
+- No runtime code changes.
+
 ## 0.1.0
 
 - Published to npm as `dsh-plugin-uisfx@0.1.0`.

@@ -22,7 +22,7 @@ const json = (value) => JSON.stringify(value, null, 2)
 // ---------------- package.json ----------------
 const packageJson = {
   name: 'dsh-plugin-uisfx',
-  version: '0.1.0',
+  version: '0.1.1',
   description: 'dsh plugin: semantic UI sound effects powered by uisfx — per-scenario cues with a settings UI',
   type: 'module',
   main: 'lib/index.js',
@@ -34,7 +34,7 @@ const packageJson = {
   },
   files: ['lib', 'vendor', 'docs', 'cordis.patch.yml', 'README.md', 'README_EN.md', 'LICENSE', 'NOTICE'],
   license: 'MIT',
-  repository: { type: 'git', url: 'https://github.com/XanthanL/dsh-plugin-uisfx' },
+  repository: { type: 'git', url: 'git+https://github.com/XanthanL/dsh-plugin-uisfx.git' },
   keywords: ['dsh-plugin', 'dsh', 'uisfx', 'web-audio', 'sound-effects', 'ui-sfx'],
   engines: { node: '>=20' },
   scripts: {
