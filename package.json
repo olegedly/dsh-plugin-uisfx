@@ -13,6 +13,7 @@
   "files": [
     "lib",
     "vendor",
+    "docs",
     "cordis.patch.yml",
     "README.md",
     "README_EN.md",
