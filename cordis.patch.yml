@@ -1,4 +1,4 @@
-# dsh-uisfx bundle patch: mount the plugin into the profile.
+# dsh-plugin-uisfx bundle patch: mount the plugin into the profile.
 - insert:
-    - id: dsh-uisfx
-      name: 'dsh-uisfx'
+    - id: uisfx
+      name: 'dsh-plugin-uisfx'

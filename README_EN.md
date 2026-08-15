@@ -1,4 +1,4 @@
-# 🔊 dsh-uisfx
+# 🔊 dsh-plugin-uisfx
 
 > A dsh plugin that brings [uisfx](https://uisfx.com) semantic UI sound effects to DeepSeek Harness.
 > Task start / success / failure and button clicks can each be assigned a sound cue from the settings page, with instant preview.
@@ -14,7 +14,7 @@
 
 dsh has almost no audio feedback by default. Did the task finish? Did it fail? Did the button register? You can only tell by watching the screen.
 
-`dsh-uisfx` adds a **semantic sound system**:
+`dsh-plugin-uisfx` adds a **semantic sound system**:
 
 - **Task sounds** — start, success, failure, pending attention
 - **Button sounds** — different sounds for different button kinds
@@ -26,14 +26,14 @@ dsh has almost no audio feedback by default. Did the task finish? Did it fail? D
 
 ## Preview
 
-![dsh-uisfx settings page](docs/settings-sound-effects.png)
+![dsh-plugin-uisfx settings page](docs/settings-sound-effects.png)
 
 ---
 
 ## Quick start
 
 ```powershell
-dsh plugin --profile web add dsh-uisfx
+dsh plugin --profile web add dsh-plugin-uisfx
 # restart dsh web
 ```
 
@@ -52,7 +52,7 @@ Then open **Settings → Sound Effects**.
 | ▶ Instant preview | Preview buttons next to every scenario in settings |
 | 🔔 Task feedback | Start / success / failure / pending for the current session |
 | 🖱 Button feedback | Auto-detects send / delete / toggle / link / primary / normal |
-| 💾 Persistence | Host `settings.yaml` namespace `dsh-uisfx` |
+| 💾 Persistence | Host `settings.yaml` namespace `dsh-plugin-uisfx` |
 | 🔌 Service API | `ctx.uisfx` for third-party plugins |
 
 ---
@@ -113,7 +113,7 @@ Preview every pack: https://uisfx.com
 All settings are written to Host `settings.yaml`:
 
 ```yaml
-dsh-uisfx:
+dsh-plugin-uisfx:
   enabled: true
   volume: 0.55
   pack: zen
@@ -178,8 +178,8 @@ There are 78 cues from uisfx:
 ## Development
 
 ```powershell
-git clone https://github.com/<your-name>/dsh-uisfx.git
-cd dsh-uisfx
+git clone https://github.com/<your-name>/dsh-plugin-uisfx.git
+cd dsh-plugin-uisfx
 pnpm install
 pnpm build      # generates lib/client.js / lib/index.js
 pnpm check      # syntax checks
@@ -188,7 +188,7 @@ pnpm check      # syntax checks
 Use a separate dev profile so restarts never interrupt your daily web:
 
 ```powershell
-dsh plugin --profile dev add ./dsh-uisfx
+dsh plugin --profile dev add ./dsh-plugin-uisfx
 dsh --profile dev web --port 3090
 ```
 
@@ -226,3 +226,4 @@ window.__dshUISFXDebug()     // current prefs
 ---
 
 If you find this plugin useful, give it a ⭐ and add the `dsh-plugin` topic to the repo.
+

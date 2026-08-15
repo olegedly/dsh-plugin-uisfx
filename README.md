@@ -1,4 +1,4 @@
-# 🔊 dsh-uisfx
+# 🔊 dsh-plugin-uisfx
 
 > 一个 dsh 插件：把 [uisfx](https://uisfx.com) 的语义化 UI 音效带进 DeepSeek Harness。
 > 任务开始 / 成功 / 失败、按钮点击，全都可以在设置页里按情景挑选音效，并即时试听。
@@ -14,7 +14,7 @@
 
 dsh 默认几乎没有反馈音。任务跑完了？失败了吗？按钮有没有点中？只能靠眼睛确认。
 
-`dsh-uisfx` 提供一套**语义化音效系统**：
+`dsh-plugin-uisfx` 提供一套**语义化音效系统**：
 
 - **任务音**：开始、成功、失败、待处理提醒
 - **按钮音**：不同按钮类型对应不同音效
@@ -26,14 +26,14 @@ dsh 默认几乎没有反馈音。任务跑完了？失败了吗？按钮有没�
 
 ## 界面预览
 
-![dsh-uisfx 设置页](docs/settings-sound-effects.png)
+![dsh-plugin-uisfx 设置页](docs/settings-sound-effects.png)
 
 ---
 
 ## 快速开始
 
 ```powershell
-dsh plugin --profile web add dsh-uisfx
+dsh plugin --profile web add dsh-plugin-uisfx
 # 重启 dsh web
 ```
 
@@ -52,7 +52,7 @@ dsh plugin --profile web add dsh-uisfx
 | ▶ 即时试听 | 设置页每个情景旁都有试听按钮，不用保存就能听 |
 | 🔔 任务反馈 | 当前会话运行开始/成功/失败/待处理，自动触发 |
 | 🖱 按钮反馈 | 自动识别发送/删除/开关/链接/主要按钮等 |
-| 💾 持久化 | `settings.yaml` 的 `dsh-uisfx` namespace，重启不丢 |
+| 💾 持久化 | `settings.yaml` 的 `dsh-plugin-uisfx` namespace，重启不丢 |
 | 🔌 服务化 | 暴露 `ctx.uisfx`，其他插件可调用 |
 
 ---
@@ -113,7 +113,7 @@ dsh plugin --profile web add dsh-uisfx
 所有设置都写入 Host `settings.yaml`：
 
 ```yaml
-dsh-uisfx:
+dsh-plugin-uisfx:
   enabled: true
   volume: 0.55
   pack: zen
@@ -182,8 +182,8 @@ ctx.uisfx.setVolume(0.5)
 ## 本地开发
 
 ```powershell
-git clone https://github.com/<your-name>/dsh-uisfx.git
-cd dsh-uisfx
+git clone https://github.com/<your-name>/dsh-plugin-uisfx.git
+cd dsh-plugin-uisfx
 pnpm install
 pnpm build      # 生成 lib/client.js / lib/index.js
 pnpm check      # 语法检查
@@ -192,7 +192,7 @@ pnpm check      # 语法检查
 使用独立 dev profile 验证，避免重启正在使用的 web：
 
 ```powershell
-dsh plugin --profile dev add ./dsh-uisfx
+dsh plugin --profile dev add ./dsh-plugin-uisfx
 dsh --profile dev web --port 3090
 ```
 
@@ -230,3 +230,4 @@ window.__dshUISFXDebug()     // 当前 prefs
 ---
 
 如果这个插件对你有用，欢迎点个 ⭐，并给仓库加上 `dsh-plugin` topic。
+

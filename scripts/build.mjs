@@ -21,7 +21,7 @@ const json = (value) => JSON.stringify(value, null, 2)
 
 // ---------------- package.json ----------------
 const packageJson = {
-  name: 'dsh-uisfx',
+  name: 'dsh-plugin-uisfx',
   version: '0.1.0',
   description: 'dsh plugin: semantic UI sound effects powered by uisfx — per-scenario cues with a settings UI',
   type: 'module',
@@ -34,13 +34,14 @@ const packageJson = {
   },
   files: ['lib', 'vendor', 'docs', 'cordis.patch.yml', 'README.md', 'README_EN.md', 'LICENSE', 'NOTICE'],
   license: 'MIT',
-  repository: { type: 'git', url: 'https://github.com/XanthanL/dsh-uisfx' },
+  repository: { type: 'git', url: 'https://github.com/XanthanL/dsh-plugin-uisfx' },
   keywords: ['dsh-plugin', 'dsh', 'uisfx', 'web-audio', 'sound-effects', 'ui-sfx'],
   engines: { node: '>=20' },
   scripts: {
     build: 'node scripts/build.mjs',
     check: 'node --check lib/index.js && node --check lib/client.js',
     prepack: 'node scripts/build.mjs',
+    prepare: 'node scripts/build.mjs',
   },
   publishConfig: { access: 'public' },
   dsh: {
@@ -68,10 +69,10 @@ const packageJson = {
 fs.writeFileSync(pluginDir + '/package.json', json(packageJson) + '\n', 'utf8')
 
 // ---------------- cordis.patch.yml ----------------
-fs.writeFileSync(pluginDir + '/cordis.patch.yml', `# dsh-uisfx bundle patch: mount the plugin into the profile.
+fs.writeFileSync(pluginDir + '/cordis.patch.yml', `# dsh-plugin-uisfx bundle patch: mount the plugin into the profile.
 - insert:
-    - id: dsh-uisfx
-      name: 'dsh-uisfx'
+    - id: uisfx
+      name: 'dsh-plugin-uisfx'
 `, 'utf8')
 
 // ---------------- Node half ----------------
@@ -85,7 +86,7 @@ export const CUE_IDS = ${json(CUE_IDS)};
 /** Scenarios the user can remap from the settings UI. */
 export const SCENARIO_IDS = ${json(SCENARIO_IDS)};
 /** User-settings namespace owned by this plugin. */
-export const UISFX_SETTINGS_NS = "dsh-uisfx";
+export const UISFX_SETTINGS_NS = "dsh-plugin-uisfx";
 
 const DEFAULT_MAPPING = {
   "task.start": "start",
@@ -161,7 +162,7 @@ function isTrustedApiRequest(request, trustedHosts) {
   return (trustedHosts ?? []).some((entry) => entry === host || entry.split(":")[0] === hostname);
 }
 
-export const name = "dsh-uisfx";
+export const name = "dsh-plugin-uisfx";
 export const inject = ["webServer", "webRuntime"];
 
 /**
@@ -215,7 +216,7 @@ export function apply(ctx) {
       }
       writeJson(res, 405, { ok: false, error: { code: "method-error", message: "method not allowed" } });
     }
-  }), "dsh-uisfx: settings api");
+  }), "dsh-plugin-uisfx: settings api");
 }
 `
 fs.writeFileSync(pluginDir + '/lib/index.js', nodeHalf, 'utf8')
@@ -243,7 +244,7 @@ fs.writeFileSync(
 )
 
 const clientPrefix = `window.__ModuleLoader__.load({
-	id: "dsh-uisfx",
+	id: "dsh-plugin-uisfx",
 	factory: (require) => {
 		var module = { exports: {} };
 		var exports = module.exports;
@@ -252,7 +253,7 @@ const clientPrefix = `window.__ModuleLoader__.load({
 
 const clientSuffix = `
 		//#region uisfx preferences + bridge
-		const NS = "dsh-uisfx";
+		const NS = "dsh-plugin-uisfx";
 		const SCENARIO_DEFS = ${json(SCENARIO_IDS.map((id) => ({ id })))};
 		const DEFAULT_MAPPING = {
 			"task.start": "start",
@@ -584,7 +585,7 @@ const clientSuffix = `
 			const disposeService = ctx.reflect.provide("uisfx", service);
 
 			// Locale dictionaries.
-			ctx.effect(() => ctx.locale.register(NS, { zh, en }), "dsh-uisfx: dictionaries");
+			ctx.effect(() => ctx.locale.register(NS, { zh, en }), "dsh-plugin-uisfx: dictionaries");
 
 			// Load Host-persisted preferences through the plugin settings API.
 			loadRemotePrefs();
@@ -703,20 +704,22 @@ Copyright (c) Yuki Capital
 
 The full vendored source is kept in vendor/uisfx-0.4.0.js.
 `,
-  LICENSE: 'MIT License\n\nCopyright (c) 2026 dsh-uisfx contributors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the "Software"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n',
+  LICENSE: 'MIT License\n\nCopyright (c) 2026 dsh-plugin-uisfx contributors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the "Software"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n',
 }
 for (const [file, content] of Object.entries(boilerplate)) {
   const target = path.join(pluginDir, file)
   if (!fs.existsSync(target)) fs.writeFileSync(target, content, 'utf8')
 }
 if (!fs.existsSync(path.join(pluginDir, 'README.md'))) {
-  fs.writeFileSync(path.join(pluginDir, 'README.md'), '# dsh-uisfx\n\nSee README.md in the repository root.\n', 'utf8')
+  fs.writeFileSync(path.join(pluginDir, 'README.md'), '# dsh-plugin-uisfx\n\nSee README.md in the repository root.\n', 'utf8')
 }
 
 console.log('plugin files written:')
 console.log(fs.readdirSync(pluginDir).join('\n'))
 console.log('client bytes', fs.statSync(pluginDir + '/lib/client.js').size)
 console.log('node bytes', fs.statSync(pluginDir + '/lib/index.js').size)
+
+
 
 
 

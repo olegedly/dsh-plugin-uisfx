@@ -1,5 +1,5 @@
 {
-  "name": "dsh-uisfx",
+  "name": "dsh-plugin-uisfx",
   "version": "0.1.0",
   "description": "dsh plugin: semantic UI sound effects powered by uisfx — per-scenario cues with a settings UI",
   "type": "module",
@@ -23,7 +23,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/XanthanL/dsh-uisfx"
+    "url": "https://github.com/XanthanL/dsh-plugin-uisfx"
   },
   "keywords": [
     "dsh-plugin",
@@ -39,7 +39,8 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "check": "node --check lib/index.js && node --check lib/client.js",
-    "prepack": "node scripts/build.mjs"
+    "prepack": "node scripts/build.mjs",
+    "prepare": "node scripts/build.mjs"
   },
   "publishConfig": {
     "access": "public"
