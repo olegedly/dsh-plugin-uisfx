@@ -9,7 +9,7 @@
 [![npm version](https://img.shields.io/npm/v/dsh-plugin-uisfx)](https://www.npmjs.com/package/dsh-plugin-uisfx)
 [![npm downloads](https://img.shields.io/npm/dm/dsh-plugin-uisfx)](https://www.npmjs.com/package/dsh-plugin-uisfx)
 [![dsh-plugin](https://img.shields.io/badge/topic-dsh--plugin-7c3aed)](https://github.com/topics/dsh-plugin)
-[![dsh](https://img.shields.io/badge/dsh-0.1.0--rc.6-2563eb)](https://github.com/deepseek-ai)
+[![dsh](https://img.shields.io/badge/dsh-0.2.0--rc.2-2563eb)](https://github.com/deepseek-ai)
 [![uisfx](https://img.shields.io/badge/powered%20by-uisfx%200.4.0-f97316)](https://uisfx.com)
 
 ---
@@ -46,12 +46,12 @@ dsh plugin --profile web add dsh-plugin-uisfx
 固定版本安装：
 
 ```powershell
-dsh plugin --profile web add dsh-plugin-uisfx@0.1.0
+dsh plugin --profile web add dsh-plugin-uisfx@0.2.0
 ```
 
 然后打开 **设置 → 音效**。
 
-> 需要 dsh `0.1.0-rc.6`。已与 `dsh-better-sidebar`、`@dsh-external/dsh-navbar` 同装验证。
+> 需要 dsh `0.2.0-rc.2`。已与 `dsh-better-sidebar`、`@dsh-external/dsh-navbar` 同装验证。
 
 ---
 
