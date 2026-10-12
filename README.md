@@ -1,9 +1,12 @@
 # 🔊 dsh-plugin-uisfx
 
-> 🌐 **English** | [中文](README.zh-CN.md)
-
 > A dsh plugin that brings [uisfx](https://uisfx.com) semantic UI sound effects to DeepSeek Harness.
 > Task start / success / failure and button clicks can each be assigned a sound cue from the settings page, with instant preview.
+
+> **Revived fork — updated for current dsh.** Upstream
+> [XanthanL/dsh-plugin-uisfx](https://github.com/XanthanL/dsh-plugin-uisfx) has been dormant since
+> 2026-08-29, and its last npm release (`0.1.1`, August 2026) targets dsh 0.1.x — current dsh refuses it.
+> This fork brings the plugin up to **dsh 0.2.0-rc.2** and is the maintained version. See [Upstream](#upstream).
 
 [![License](https://img.shields.io/badge/license-MIT-blue)](#license)
 [![fork of XanthanL/dsh-plugin-uisfx](https://img.shields.io/badge/fork%20of-XanthanL%2Fdsh--plugin--uisfx-6e7681)](https://github.com/XanthanL/dsh-plugin-uisfx)
@@ -35,8 +38,7 @@ dsh has almost no audio feedback by default. Did the task finish? Did it fail? D
 
 ## Quick start
 
-This repo is the **dsh 0.2 fork** of [XanthanL/dsh-plugin-uisfx](https://github.com/XanthanL/dsh-plugin-uisfx).
-No npm package is published for the fork, so install it straight from GitHub:
+Install straight from GitHub — no npm package is published for this fork:
 
 ```powershell
 dsh plugin --profile web add github:olegedly/dsh-plugin-uisfx
@@ -51,9 +53,10 @@ dsh plugin --profile web add github:olegedly/dsh-plugin-uisfx#<commit-sha>
 
 Then open **Settings → Sound Effects**.
 
-> Requires dsh `0.2.0-rc.2`. Verified alongside `dsh-better-sidebar` and `@dsh-external/dsh-navbar`.
+> Requires dsh `0.2.0-rc.2` (the current release).
 >
-> ⚠️ The npm package `dsh-plugin-uisfx` is **0.1.1** and predates the dsh 0.2 port — do not install it if you are on dsh 0.2.
+> ⚠️ Do not install the npm package `dsh-plugin-uisfx` on dsh 0.2. Its newest version is `0.1.1` from
+> August 2026, it targets dsh 0.1.x, and dsh rejects it on compatibility grounds before installing.
 
 ---
 
@@ -197,13 +200,18 @@ cd dsh-plugin-uisfx
 pnpm install
 pnpm build      # generates lib/client.js / lib/index.js
 pnpm check      # syntax checks
+pnpm test       # drives the real client bundle through a simulated dsh 0.2 turn
 ```
+
+`scripts/build.mjs` is the source of truth: it generates `package.json`, `cordis.patch.yml`, `lib/index.js`,
+`lib/client.js` and `vendor/uisfx-0.4.0.js`. Edit the generator and re-run `pnpm build` rather than
+hand-editing the generated files.
 
 Use a separate dev profile so restarts never interrupt your daily web:
 
 ```powershell
-dsh plugin --profile dev add ./dsh-plugin-uisfx
-dsh --profile dev web --port 3090
+dsh plugin --profile dev add /absolute/path/to/dsh-plugin-uisfx
+dsh --profile dev --port 3090
 ```
 
 Browser debug helpers:
@@ -228,16 +236,26 @@ window.__dshUISFXDebug()     // current prefs
 
 ## Upstream
 
-This fork exists because upstream [XanthanL/dsh-plugin-uisfx](https://github.com/XanthanL/dsh-plugin-uisfx)
-still targets dsh 0.1.x and its last npm release is `0.1.1`. The dsh 0.2 port (`0.2.0` / `0.2.1`) lives here.
-Upstream is wired up as a git remote:
+Upstream [XanthanL/dsh-plugin-uisfx](https://github.com/XanthanL/dsh-plugin-uisfx) has been dormant since
+**2026-08-29**. Its entire history is a two-week burst in August 2026, it has no tagged releases, and its npm
+package only ever shipped `0.1.0` / `0.1.1` for dsh 0.1.x. dsh then moved on to `0.2.0-rc.2`, which removed
+`ctx.settings.register()`, dropped `@deepseek-ai/dsh-client-runtime`, and moved the current-session facts out
+of `ctx.sessions.list` — so the upstream plugin no longer installs, and would not work if it did.
+
+This fork is the continuation of that work:
+
+| Version | Change |
+|---|---|
+| `0.2.0` | Ported to the dsh 0.2 settings model and client injects |
+| `0.2.1` | Fixed the task-lifecycle watcher, which had gone silent on dsh 0.2 |
+
+Details are in [CHANGELOG.md](CHANGELOG.md). Upstream is kept as a git remote for reference:
 
 ```powershell
 git remote add upstream https://github.com/XanthanL/dsh-plugin-uisfx.git
 ```
 
-Reports about the audio engine, sound packs or cue design belong upstream; anything about the dsh 0.2 port
-(task-lifecycle watcher, settings model, client injects) belongs here.
+Because upstream is dormant, please file issues and pull requests **here** rather than upstream.
 
 ---
 
@@ -254,5 +272,5 @@ Reports about the audio engine, sound packs or cue design belong upstream; anyth
 
 ---
 
-If you find this plugin useful, give it a ⭐ and add the `dsh-plugin` topic to the repo.
+If this plugin saves you from staring at the screen waiting for a task, give it a ⭐.
 

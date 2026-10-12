@@ -32,7 +32,7 @@ const packageJson = {
     './client/service': './lib/client.js',
     './package.json': './package.json',
   },
-  files: ['lib', 'vendor', 'docs', 'cordis.patch.yml', 'README.md', 'README.zh-CN.md', 'LICENSE', 'NOTICE'],
+  files: ['lib', 'vendor', 'docs', 'cordis.patch.yml', 'README.md', 'LICENSE', 'NOTICE'],
   license: 'MIT',
   repository: { type: 'git', url: 'git+https://github.com/olegedly/dsh-plugin-uisfx.git' },
   keywords: ['dsh-plugin', 'dsh', 'uisfx', 'web-audio', 'sound-effects', 'ui-sfx'],
