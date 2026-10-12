@@ -28,7 +28,8 @@
   entry in `files`, and document the revival of the dormant upstream plugin.
 - Docs: the persisted settings namespace is `uisfx` (the profile entry id),
   not `dsh-plugin-uisfx`; the architecture note described the pre-0.2
-  `ctx.sessions.binding` watcher.
+  `ctx.sessions.binding` watcher. Refresh the README screenshot with a current
+  capture of the Sound Effects settings page.
 
 ## 0.2.0
 
