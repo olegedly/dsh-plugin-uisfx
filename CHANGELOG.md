@@ -19,6 +19,16 @@
 - Add `test/session-watch.test.mjs` (`pnpm test`), a browser-free harness that
   drives the real client bundle through a running to idle turn and asserts which
   scenarios are played.
+- Publish as the dsh 0.2 **fork** of `XanthanL/dsh-plugin-uisfx`:
+  `repository` points at the fork, the READMEs document the `github:` install
+  spec, and the `prepare` script is dropped so a git install never trips pnpm's
+  build blocking (the built `lib/` is committed). `prepack` still builds on
+  `pnpm pack` and on publish.
+- `files` now ships `README.zh-CN.md`; it previously listed a `README_EN.md`
+  that no longer exists.
+- Docs: the persisted settings namespace is `uisfx` (the profile entry id),
+  not `dsh-plugin-uisfx`; the architecture note described the pre-0.2
+  `ctx.sessions.binding` watcher.
 
 ## 0.2.0
 

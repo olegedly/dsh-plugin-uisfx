@@ -6,8 +6,7 @@
 > 任务开始 / 成功 / 失败、按钮点击，全都可以在设置页里按情景挑选音效，并即时试听。
 
 [![License](https://img.shields.io/badge/license-MIT-blue)](#license)
-[![npm version](https://img.shields.io/npm/v/dsh-plugin-uisfx)](https://www.npmjs.com/package/dsh-plugin-uisfx)
-[![npm downloads](https://img.shields.io/npm/dm/dsh-plugin-uisfx)](https://www.npmjs.com/package/dsh-plugin-uisfx)
+[![fork of XanthanL/dsh-plugin-uisfx](https://img.shields.io/badge/fork%20of-XanthanL%2Fdsh--plugin--uisfx-6e7681)](https://github.com/XanthanL/dsh-plugin-uisfx)
 [![dsh-plugin](https://img.shields.io/badge/topic-dsh--plugin-7c3aed)](https://github.com/topics/dsh-plugin)
 [![dsh](https://img.shields.io/badge/dsh-0.2.0--rc.2-2563eb)](https://github.com/deepseek-ai)
 [![uisfx](https://img.shields.io/badge/powered%20by-uisfx%200.4.0-f97316)](https://uisfx.com)
@@ -36,22 +35,25 @@ dsh 默认几乎没有反馈音。任务跑完了？失败了吗？按钮有没�
 
 ## 快速开始
 
-已发布到 npm：**[dsh-plugin-uisfx](https://www.npmjs.com/package/dsh-plugin-uisfx)**
+本仓库是 [XanthanL/dsh-plugin-uisfx](https://github.com/XanthanL/dsh-plugin-uisfx) 的 **dsh 0.2 fork**。
+fork 没有发布 npm 包，请直接从 GitHub 安装：
 
 ```powershell
-dsh plugin --profile web add dsh-plugin-uisfx
+dsh plugin --profile web add github:olegedly/dsh-plugin-uisfx
 # 重启 dsh web
 ```
 
-固定版本安装：
+固定到某个 commit，保证可复现：
 
 ```powershell
-dsh plugin --profile web add dsh-plugin-uisfx@0.2.0
+dsh plugin --profile web add github:olegedly/dsh-plugin-uisfx#<commit-sha>
 ```
 
 然后打开 **设置 → 音效**。
 
 > 需要 dsh `0.2.0-rc.2`。已与 `dsh-better-sidebar`、`@dsh-external/dsh-navbar` 同装验证。
+>
+> ⚠️ npm 上的 `dsh-plugin-uisfx` 是 **0.1.1**，早于 dsh 0.2 适配 —— 在 dsh 0.2 上请不要安装它。
 
 ---
 
@@ -64,7 +66,7 @@ dsh plugin --profile web add dsh-plugin-uisfx@0.2.0
 | ▶ 即时试听 | 设置页每个情景旁都有试听按钮，不用保存就能听 |
 | 🔔 任务反馈 | 当前会话运行开始/成功/失败/待处理，自动触发 |
 | 🖱 按钮反馈 | 自动识别发送/删除/开关/链接/主要按钮等 |
-| 💾 持久化 | `settings.yaml` 的 `dsh-plugin-uisfx` namespace，重启不丢 |
+| 💾 持久化 | `settings.yaml` 的 `uisfx` namespace（即 profile 里的 entry id），重启不丢 |
 | 🔌 服务化 | 暴露 `ctx.uisfx`，其他插件可调用 |
 
 ---
@@ -125,7 +127,7 @@ dsh plugin --profile web add dsh-plugin-uisfx@0.2.0
 所有设置都写入 Host `settings.yaml`：
 
 ```yaml
-dsh-plugin-uisfx:
+uisfx:
   enabled: true
   volume: 0.55
   pack: zen
@@ -165,7 +167,7 @@ ctx.uisfx.setVolume(0.5)
 
 - **零音频文件**：内嵌 uisfx 0.4.0 Web Audio 合成运行时，无网络请求
 - **懒加载**：第一次用户手势时才创建播放器，符合浏览器 autoplay 策略
-- **任务观察**：订阅 `ctx.sessions.binding(current).session`，监听 `running` / `pending` / `lastAgentError`
+- **任务观察**：跟踪 `uiSession.current`，从 `uiSession.sessionStatus` 读取每个会话的 `running` / `pendingInteraction`（dsh 0.2 已把两者移出 `ctx.sessions.list`）
 - **按钮分类**：全局 pointerdown 分类器，按语义映射到 cue
 - **设置持久化**：插件自带 `/uisfx/api/settings` API，写入 Host settings
 
@@ -194,7 +196,7 @@ ctx.uisfx.setVolume(0.5)
 ## 本地开发
 
 ```powershell
-git clone https://github.com/<your-name>/dsh-plugin-uisfx.git
+git clone https://github.com/olegedly/dsh-plugin-uisfx.git
 cd dsh-plugin-uisfx
 pnpm install
 pnpm build      # 生成 lib/client.js / lib/index.js
@@ -225,6 +227,20 @@ window.__dshUISFXDebug()     // 当前 prefs
 - [ ] hover / drag / 分栏拖拽音
 - [ ] 每个情景独立音色包
 - [ ] 自定义音频文件上传
+
+---
+
+## 上游
+
+上游 [XanthanL/dsh-plugin-uisfx](https://github.com/XanthanL/dsh-plugin-uisfx) 仍面向 dsh 0.1.x，
+npm 上最后一次发布是 `0.1.1`，因此 dsh 0.2 适配（`0.2.0` / `0.2.1`）放在本仓库。
+上游已配置为 git remote：
+
+```powershell
+git remote add upstream https://github.com/XanthanL/dsh-plugin-uisfx.git
+```
+
+音效引擎、音色包、cue 设计相关问题请提到上游；dsh 0.2 适配相关问题（任务观察、设置模型、client inject）请提到本仓库。
 
 ---
 

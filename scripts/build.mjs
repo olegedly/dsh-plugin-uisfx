@@ -32,9 +32,9 @@ const packageJson = {
     './client/service': './lib/client.js',
     './package.json': './package.json',
   },
-  files: ['lib', 'vendor', 'docs', 'cordis.patch.yml', 'README.md', 'README_EN.md', 'LICENSE', 'NOTICE'],
+  files: ['lib', 'vendor', 'docs', 'cordis.patch.yml', 'README.md', 'README.zh-CN.md', 'LICENSE', 'NOTICE'],
   license: 'MIT',
-  repository: { type: 'git', url: 'git+https://github.com/XanthanL/dsh-plugin-uisfx.git' },
+  repository: { type: 'git', url: 'git+https://github.com/olegedly/dsh-plugin-uisfx.git' },
   keywords: ['dsh-plugin', 'dsh', 'uisfx', 'web-audio', 'sound-effects', 'ui-sfx'],
   engines: { node: '>=20' },
   scripts: {
@@ -42,7 +42,6 @@ const packageJson = {
     check: 'node --check lib/index.js && node --check lib/client.js',
     test: 'node --test test/',
     prepack: 'node scripts/build.mjs',
-    prepare: 'node scripts/build.mjs',
   },
   publishConfig: { access: 'public' },
   dsh: {

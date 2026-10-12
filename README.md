@@ -6,8 +6,7 @@
 > Task start / success / failure and button clicks can each be assigned a sound cue from the settings page, with instant preview.
 
 [![License](https://img.shields.io/badge/license-MIT-blue)](#license)
-[![npm version](https://img.shields.io/npm/v/dsh-plugin-uisfx)](https://www.npmjs.com/package/dsh-plugin-uisfx)
-[![npm downloads](https://img.shields.io/npm/dm/dsh-plugin-uisfx)](https://www.npmjs.com/package/dsh-plugin-uisfx)
+[![fork of XanthanL/dsh-plugin-uisfx](https://img.shields.io/badge/fork%20of-XanthanL%2Fdsh--plugin--uisfx-6e7681)](https://github.com/XanthanL/dsh-plugin-uisfx)
 [![dsh-plugin](https://img.shields.io/badge/topic-dsh--plugin-7c3aed)](https://github.com/topics/dsh-plugin)
 [![dsh](https://img.shields.io/badge/dsh-0.2.0--rc.2-2563eb)](https://github.com/deepseek-ai)
 [![uisfx](https://img.shields.io/badge/powered%20by-uisfx%200.4.0-f97316)](https://uisfx.com)
@@ -36,22 +35,25 @@ dsh has almost no audio feedback by default. Did the task finish? Did it fail? D
 
 ## Quick start
 
-Published on npm: **[dsh-plugin-uisfx](https://www.npmjs.com/package/dsh-plugin-uisfx)**
+This repo is the **dsh 0.2 fork** of [XanthanL/dsh-plugin-uisfx](https://github.com/XanthanL/dsh-plugin-uisfx).
+No npm package is published for the fork, so install it straight from GitHub:
 
 ```powershell
-dsh plugin --profile web add dsh-plugin-uisfx
+dsh plugin --profile web add github:olegedly/dsh-plugin-uisfx
 # restart dsh web
 ```
 
-Pin a version:
+Pin a commit for a reproducible install:
 
 ```powershell
-dsh plugin --profile web add dsh-plugin-uisfx@0.2.0
+dsh plugin --profile web add github:olegedly/dsh-plugin-uisfx#<commit-sha>
 ```
 
 Then open **Settings → Sound Effects**.
 
 > Requires dsh `0.2.0-rc.2`. Verified alongside `dsh-better-sidebar` and `@dsh-external/dsh-navbar`.
+>
+> ⚠️ The npm package `dsh-plugin-uisfx` is **0.1.1** and predates the dsh 0.2 port — do not install it if you are on dsh 0.2.
 
 ---
 
@@ -64,7 +66,7 @@ Then open **Settings → Sound Effects**.
 | ▶ Instant preview | Preview buttons next to every scenario in settings |
 | 🔔 Task feedback | Start / success / failure / pending for the current session |
 | 🖱 Button feedback | Auto-detects send / delete / toggle / link / primary / normal |
-| 💾 Persistence | Host `settings.yaml` namespace `dsh-plugin-uisfx` |
+| 💾 Persistence | Host `settings.yaml` namespace `uisfx` (the profile entry id) |
 | 🔌 Service API | `ctx.uisfx` for third-party plugins |
 
 ---
@@ -125,7 +127,7 @@ Preview every pack: https://uisfx.com
 All settings are written to Host `settings.yaml`:
 
 ```yaml
-dsh-plugin-uisfx:
+uisfx:
   enabled: true
   volume: 0.55
   pack: zen
@@ -165,7 +167,7 @@ There are 78 cues from uisfx:
 
 - **No audio files** — embeds the uisfx 0.4.0 Web Audio synthesis runtime
 - **Lazy player** — created on the first user gesture, respecting autoplay policies
-- **Task watcher** — subscribes to `ctx.sessions.binding(current).session` (`running` / `pending` / `lastAgentError`)
+- **Task watcher** — tracks `uiSession.current` and reads `running` / `pendingInteraction` per session from `uiSession.sessionStatus` (dsh 0.2 moved both out of `ctx.sessions.list`)
 - **Click classifier** — global pointerdown classifier maps semantics to scenarios
 - **Persistence** — dedicated `/uisfx/api/settings` API backed by Host settings
 
@@ -190,7 +192,7 @@ There are 78 cues from uisfx:
 ## Development
 
 ```powershell
-git clone https://github.com/<your-name>/dsh-plugin-uisfx.git
+git clone https://github.com/olegedly/dsh-plugin-uisfx.git
 cd dsh-plugin-uisfx
 pnpm install
 pnpm build      # generates lib/client.js / lib/index.js
@@ -221,6 +223,21 @@ window.__dshUISFXDebug()     // current prefs
 - [ ] Hover / drag / split sounds
 - [ ] Per-scenario sound pack
 - [ ] Custom audio uploads
+
+---
+
+## Upstream
+
+This fork exists because upstream [XanthanL/dsh-plugin-uisfx](https://github.com/XanthanL/dsh-plugin-uisfx)
+still targets dsh 0.1.x and its last npm release is `0.1.1`. The dsh 0.2 port (`0.2.0` / `0.2.1`) lives here.
+Upstream is wired up as a git remote:
+
+```powershell
+git remote add upstream https://github.com/XanthanL/dsh-plugin-uisfx.git
+```
+
+Reports about the audio engine, sound packs or cue design belong upstream; anything about the dsh 0.2 port
+(task-lifecycle watcher, settings model, client injects) belongs here.
 
 ---
 
